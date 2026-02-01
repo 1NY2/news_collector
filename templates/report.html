@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技周报 - {{ date }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 封面 */
+        .cover {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 3px solid #2563eb;
+            margin-bottom: 40px;
+        }
+        
+        .cover h1 {
+            font-size: 32pt;
+            color: #1e40af;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .cover .subtitle {
+            font-size: 14pt;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        .cover .date {
+            font-size: 12pt;
+            color: #94a3b8;
+        }
+        
+        /* 章节标题 */
+        .section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            font-size: 16pt;
+            color: #1e40af;
+            border-left: 4px solid #2563eb;
+            padding-left: 12px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        /* 摘要卡片 */
+        .summary-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-card p {
+            font-size: 11pt;
+            line-height: 1.8;
+            color: #334155;
+        }
+        
+        /* 标签 */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .tag {
+            background: #2563eb;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 9pt;
+        }
+        
+        .tag-secondary {
+            background: #64748b;
+        }
+        
+        /* 项目卡片 */
+        .project-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .project-name {
+            font-size: 13pt;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .project-priority {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 9pt;
+            font-weight: 500;
+        }
+        
+        .project-priority.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .project-priority.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .project-priority.low {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .project-desc {
+            color: #475569;
+            margin-bottom: 10px;
+            font-size: 10pt;
+        }
+        
+        .project-meta {
+            font-size: 9pt;
+            color: #64748b;
+        }
+        
+        .project-meta span {
+            margin-right: 15px;
+        }
+        
+        .project-reason {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 9pt;
+            color: #475569;
+        }
+        
+        /* 新闻列表 */
+        .news-list {
+            list-style: none;
+        }
+        
+        .news-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-source {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 8pt;
+            margin-right: 8px;
+        }
+        
+        .news-title {
+            color: #1e293b;
+            font-size: 10pt;
+        }
+        
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .news-title a:hover {
+            color: #2563eb;
+        }
+        
+        /* 页脚 */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 9pt;
+        }
+        
+        /* 分页 */
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 封面 -->
+        <div class="cover">
+            <h1>📊 科技周报</h1>
+            <p class="subtitle">独立开发者的信息情报</p>
+            <p class="date">{{ date }}</p>
+        </div>
+        
+        <!-- 热点总结 -->
+        <div class="section">
+            <h2 class="section-title">📌 本周热点总结</h2>
+            <div class="summary-card">
+                <p>{{ analysis.summary }}</p>
+            </div>
+            
+            {% if analysis.trends %}
+            <div class="tags">
+                <strong style="margin-right: 10px;">趋势关键词:</strong>
+                {% for trend in analysis.trends %}
+                <span class="tag">{{ trend }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if analysis.opportunities %}
+            <div class="tags">
+                <strong style="margin-right: 10px;">市场机会:</strong>
+                {% for opp in analysis.opportunities %}
+                <span class="tag tag-secondary">{{ opp }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- 项目建议 -->
+        <div class="section">
+            <h2 class="section-title">💡 项目建议</h2>
+            {% for project in analysis.project_suggestions %}
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-name">{{ project.name }}</span>
+                    <span class="project-priority {% if project.priority >= 4 %}high{% elif project.priority >= 3 %}medium{% else %}low{% endif %}">
+                        优先级 {{ project.priority }}/5
+                    </span>
+                </div>
+                <p class="project-desc">{{ project.description }}</p>
+                <div class="project-meta">
+                    <span>👥 {{ project.target_users }}</span>
+                    <span>📊 难度: {{ project.difficulty }}</span>
+                </div>
+                <div class="project-meta">
+                    <span>🛠️ 技术栈: {{ project.tech_stack | join(", ") }}</span>
+                </div>
+                <div class="project-reason">
+                    💬 {{ project.reason }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <!-- 新闻列表 -->
+        <div class="section">
+            <h2 class="section-title">📰 本周新闻一览</h2>
+            
+            {% for source, items in news_by_source.items() %}
+            <h3 style="font-size: 11pt; color: #475569; margin: 15px 0 10px;">{{ source }} ({{ items | length }})</h3>
+            <ul class="news-list">
+                {% for item in items[:10] %}
+                <li class="news-item">
+                    <span class="news-source">{{ item.source }}</span>
+                    <span class="news-title">
+                        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
+        
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>本报告由 News Collector 自动生成</p>
+            <p>AI 分析仅供参考，请结合实际情况判断</p>
+        </div>
+    </div>
+</body>
+</html>

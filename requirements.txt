@@ -1,0 +1,29 @@
+# News Collector - Dependencies
+# AI API调用（OpenAI兼容接口）
+openai>=1.0.0
+
+# HTTP请求
+requests>=2.31.0
+aiohttp>=3.9.0
+
+# RSS解析
+feedparser>=6.0.0
+
+# HTML解析
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# PDF生成
+weasyprint>=60.0
+
+# 模板引擎
+jinja2>=3.1.0
+
+# 环境变量
+python-dotenv>=1.0.0
+
+# CLI框架
+typer>=0.9.0
+
+# 终端美化输出
+rich>=13.0.0
